@@ -1,4 +1,5 @@
-//
+
+
 //  Kitchen.m
 //  PizzaRestaurant
 //
@@ -7,12 +8,32 @@
 //
 
 #import "Kitchen.h"
+#import "Pizza.h"
 
 @implementation Kitchen
 
-/*- (Pizza *)makePizzaWithSize:(PizzaSize)size toppings:(NSArray *)toppings
-{
+- (Pizza *)makePizzaWithSize:(Pizzasize)size toppings:(NSArray *)toppings{
     
-}*/
+    
+    if ([self.delegate kitchen:self shouldMakePizzaOfSize:size andToppings:toppings]) {
+        if ([self.delegate kitchenShouldUpgradeOrder: self ]){
+            size= klarge;
+        }
+        
+        
+        Pizza *pizzamade= [[Pizza alloc] initMakePizzeWithSize:size toppings:toppings];
+        
+        
+        
+        return pizzamade;
+    }
+ 
+
+ 
+    return nil;
+    
+}
+
+
 
 @end

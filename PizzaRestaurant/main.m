@@ -10,6 +10,10 @@
 
 #import "Kitchen.h"
 
+#import "Pizza.h"
+#import "Happymanager.h"
+#import "Angrymanager.h"
+
 int main(int argc, const char * argv[])
 {
 
@@ -33,8 +37,35 @@ int main(int argc, const char * argv[])
             
             // Take the first word of the command as the size, and the rest as the toppings
             NSArray *commandWords = [inputString componentsSeparatedByString:@" "];
+            Happymanager *friendlymanager= [[Happymanager alloc] init];
+            Angrymanager *angrymanager = [[Angrymanager alloc] init];
             
-            // And then send some message to the kitchen...
+            NSString *manager=  commandWords[0];
+            
+            if ([manager isEqualToString:@"friendly"]) {
+                restaurantKitchen.delegate= friendlymanager;
+            }
+            
+            if ([manager isEqualToString:@"angry" ]) {
+                restaurantKitchen.delegate= angrymanager;
+            }
+            
+            Pizzasize firstword = [Pizza  returnPizzeSize: commandWords[1]];
+        
+            
+            NSMutableArray *mutableCommands = [commandWords mutableCopy];
+            [mutableCommands removeObjectAtIndex:0];
+            [mutableCommands removeObjectAtIndex:0];
+            
+            
+                        
+            Pizza *newpizza = [restaurantKitchen makePizzaWithSize:firstword toppings: mutableCommands];
+            
+            NSString *stringPizza= [newpizza  returnstringsize];
+            
+            NSLog(@"the pizza size is %@ and the pizza topping are %@,", stringPizza, newpizza.pizzaToppings);
+        
+         
         }
 
     }
